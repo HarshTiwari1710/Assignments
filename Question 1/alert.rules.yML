@@ -1,0 +1,29 @@
+groups:
+  - name: script_alerts
+    rules:
+    - alert: HighExecutionTime
+      expr: script_execution_time_seconds > 10
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Script execution time is too high"
+        description: "Execution time is {{ $value }} seconds."
+        
+    - alert: HighMemoryUsage
+      expr: script_memory_usage_bytes > 500000000  # Adjust threshold as needed
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Script memory usage is too high"
+        description: "Memory usage is {{ $value }} bytes."
+        
+    - alert: ScriptErrors
+      expr: script_errors_total > 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Script encountered an error"
+        description: "The script has encountered an error."
